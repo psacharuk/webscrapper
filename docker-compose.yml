@@ -1,0 +1,33 @@
+version: '3.3'
+services:
+  webscrapper:
+      container_name: webscrapper
+      build: .
+      depends_on:
+        - mysqldb
+      environment:
+        API_PREFIX: ${API_PREFIX:-/api}
+        FASTAPI_PORT: ${FASTAPI_PORT:-9000}
+      ports:
+        - $FASTAPI_PORT:8000
+      restart: always
+      networks:
+        - app-tier
+  mysqldb:
+      image: mysql:8.1.0
+      restart: always
+      container_name: mysqldb
+      environment:
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+        MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD:-root}
+        MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD:-root}
+      volumes:
+        - ./data:/data/db
+      ports:
+        - 127.0.0.1:3307:3306
+      networks:
+        - app-tier
+networks:
+  app-tier:
+    driver: bridge
+
