@@ -3,7 +3,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
-from app.data.routes import define_webpage_routes
+from app.model.webpage.routes import define_webpage_routes
 
 def create_app():
     app = FastAPI(title="WebScrapper")
