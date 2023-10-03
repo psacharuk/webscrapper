@@ -1,4 +1,7 @@
 FROM python:alpine3.18
+
+# required by mysqlclient
+RUN apk --no-cache add mariadb-dev build-base
 COPY pip-requirements.txt .
 
 RUN pip install --no-cache-dir -r pip-requirements.txt

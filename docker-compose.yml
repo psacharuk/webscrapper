@@ -17,13 +17,12 @@ services:
       restart: always
       container_name: mysqldb
       environment:
+        DB_USER: ${DB_USER:-root}
         MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
-        MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_ALLOW_EMPTY_PASSWORD:-root}
-        MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD:-root}
       volumes:
         - ./data:/data/db
       ports:
-        - 127.0.0.1:3307:3306
+        - 127.0.0.1:3306:3306
       networks:
         - app-tier
 networks:
