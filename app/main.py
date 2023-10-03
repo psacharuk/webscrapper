@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+import os
 import uvicorn
+from fastapi import FastAPI
 
 def create_app():
     app = FastAPI(title="WebScrapper")
@@ -8,4 +9,4 @@ def create_app():
 fastapi_app = create_app()
 
 if __name__ == '__main__':
-    uvicorn.run(fastapi_app, host="0.0.0.0", port=8000)
+    uvicorn.run(fastapi_app, host="0.0.0.0", port=os.environ["FASTAPI_PORT"])

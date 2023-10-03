@@ -6,10 +6,9 @@ services:
       depends_on:
         - mysqldb
       environment:
-        API_PREFIX: ${API_PREFIX:-/api}
         FASTAPI_PORT: ${FASTAPI_PORT:-9000}
       ports:
-        - $FASTAPI_PORT:8000
+        - $FASTAPI_PORT:$FASTAPI_PORT
       restart: always
       networks:
         - app-tier
