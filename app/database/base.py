@@ -6,15 +6,12 @@ from app.database.config import CONNECTION_STRING
 
 engine = create_engine(CONNECTION_STRING)
 
+
 if not database_exists(engine.url):
     create_database(engine.url)
 
-# use session_factory() to get a new Session
 _SessionFactory = sessionmaker(bind=engine)
-
-
 declarative_base = lambda cls: real_declarative_base(cls=cls)
-
 
 def session_factory(create_all = False):
     if create_all:

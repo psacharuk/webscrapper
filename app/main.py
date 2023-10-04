@@ -4,6 +4,8 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
 from app.model.webpage.routes import define_webpage_routes
+from app.database.base import session_factory
+from app.database.preparation import prepare_db
 
 def create_app():
     app = FastAPI(title="WebScrapper")
@@ -11,6 +13,8 @@ def create_app():
     return app
 
 fastapi_app = create_app()
+session = session_factory(True)
+prepare_db(session)
 
 @fastapi_app.get("/")
 def welcome_page():
