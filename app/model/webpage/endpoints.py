@@ -1,13 +1,17 @@
 from app.database.connection import select_from_db
 from app.model.webpage.schema import Webpage
+from app.utils.webpage.page import get_page
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter()
 
-@router.get("/download")
-def get_from_webpage():
-    return "data from internet"
+@router.get("/download/{url:path}")
+def get_from_webpage(url):
+    returned_url, content, error_info = get_page(url)
+    if error_info:
+        raise HTTPException(status_code=404, detail=error_info)
+    return {"url": returned_url, "content": content}
 
 @router.get("/db")
 def get_from_db():
