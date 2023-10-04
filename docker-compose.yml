@@ -6,7 +6,10 @@ services:
       depends_on:
         - mysqldb
       environment:
-        FASTAPI_PORT: ${FASTAPI_PORT:-9000}
+        FASTAPI_PORT: ${FASTAPI_PORT}
+        SERVER_IP: ${SERVER_IP}
+        DB_NAME: ${DB_NAME}
+        INTERNAL_DB_ADDRESS: ${INTERNAL_DB_ADDRESS}
       ports:
         - $FASTAPI_PORT:$FASTAPI_PORT
       restart: always
@@ -17,12 +20,13 @@ services:
       restart: always
       container_name: mysqldb
       environment:
-        DB_USER: ${DB_USER:-root}
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-root}
+        SERVER_IP: ${SERVER_IP}
+        DB_USER: ${DB_USER}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       volumes:
         - ./data:/data/db
       ports:
-        - 127.0.0.1:3306:3306
+        - $SERVER_IP:3306:3306
       networks:
         - app-tier
 networks:

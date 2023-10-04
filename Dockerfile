@@ -7,9 +7,10 @@ COPY pip-requirements.txt .
 RUN pip install --no-cache-dir -r pip-requirements.txt
 
 COPY . .
-# to env variable
-EXPOSE 9000
 
-CMD ["uvicorn", "app.main:fastapi_app", "--host", "0.0.0.0", "--port", "9000", "--reload"]
+ARG FASTAPI_PORT
+ARG SERVER_IP
 
+EXPOSE $FASTAPI_PORT
+CMD uvicorn app.main:fastapi_app --host ${SERVER_IP} --port ${FASTAPI_PORT} --reload
 
