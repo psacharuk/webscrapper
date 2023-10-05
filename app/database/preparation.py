@@ -29,7 +29,7 @@ def add_column(engine, table_name, column):
     column_name = column.compile(dialect=engine.dialect)
     column_type = column.type.compile(engine.dialect)
 
-    command = 'ALTER TABLE %s ADD COLUMN %s %s' % (table_name, colu mn_name, column_type)
+    command = 'ALTER TABLE %s ADD COLUMN %s %s' % (table_name, column_name, column_type)
 
     if column.default is not None:
         is_int = isinstance(column.default.arg, int)
