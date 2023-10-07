@@ -10,7 +10,7 @@ router = APIRouter()
 @router.get("/download/{url:path}")
 def get_from_webpage(url):
     returned_url, content, error_info = get_page(url)
-    if error_info:
+    if error_info or content is None:
         raise HTTPException(status_code=404, detail=error_info)
     head, body, footer = parse_content(content)
     webpage = Webpage(address=returned_url, head=head, body=body, foot=footer)

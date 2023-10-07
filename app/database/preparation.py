@@ -18,9 +18,9 @@ def prepare_db(session):
             mapper = inspect(model)
 
             for column_prop in mapper.attrs:
-                    for model_column in column_prop.columns:
-                        if model_column.key not in model_columns_names:
-                            add_column(engine, model_table_name, model_column)
+                for model_column in column_prop.columns:
+                    if model_column.key not in model_columns_names:
+                        add_column(engine, model_table_name, model_column)
         else:
             model.__table__.create(engine)
 
