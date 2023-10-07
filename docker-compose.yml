@@ -2,7 +2,9 @@ version: '3.3'
 services:
   webscrapper:
       container_name: webscrapper
-      build: .
+      build:
+        context: .
+        dockerfile: Dockerfile
       depends_on:
         - mysqldb
       environment:
@@ -12,6 +14,14 @@ services:
         INTERNAL_DB_ADDRESS: ${INTERNAL_DB_ADDRESS}
       ports:
         - $FASTAPI_PORT:$FASTAPI_PORT
+      restart: always
+      networks:
+        - app-tier
+  webscrapper-test:
+      container_name: webscrapper-test
+      build:
+        context: .
+        dockerfile: Dockerfile.tests
       restart: always
       networks:
         - app-tier
